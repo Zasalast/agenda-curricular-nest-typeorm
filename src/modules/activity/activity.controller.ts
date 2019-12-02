@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Response, HttpStatus, Get, Res, Param, Put } from "@nestjs/common";
+import { Controller, Post, Body, Response, HttpStatus, Get, Res, Param, Put, Delete } from "@nestjs/common";
 import { ActivityService } from "./activity.service";
 import { CreateActivityDto } from "./dto/create-activity.dto";
 import { response } from "express";
@@ -28,6 +28,13 @@ export class ActivityController {
     @Put() 
     async UpdateActivity(@Response() res,@Body() activity: UpdateActivityDto ) {
        const response = await this.activityService.UpdateActivity(activity);
+        res.status(HttpStatus.OK).json(response);
+    }
+
+
+    @Delete(':id') 
+    async Delete(@Response() res,@Param('id') id: number ) {
+       const response = await this.activityService.Delete(id);
         res.status(HttpStatus.OK).json(response);
     }
 }

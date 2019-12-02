@@ -1,6 +1,6 @@
-import { Injectable, Get, Post, Put, Delete } from '@nestjs/common';
+import { Injectable, Get, Post, Put, Delete, Options } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, DeleteResult } from 'typeorm';
 import {ActivityEntity}from '../../models/activity.entity'
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
@@ -32,6 +32,10 @@ export class ActivityService{
 
 	  async findOne(id): Promise<ActivityEntity> {
 		return await this.activityRepository.findOne({where:{id}});
+	  }
+
+	  async Delete(id: number): Promise<DeleteResult> {
+		return await this.activityRepository.delete( id);
 	  }
 
 	async UpdateActivity(data: UpdateActivityDto): Promise<ActivityEntity> {
