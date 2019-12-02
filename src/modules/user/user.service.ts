@@ -16,30 +16,43 @@ export class UserService {
 			user.username = data.username;
 			user.password = data.password;
 			user.email = data.email;
-		return	await this.userRepository.save(user)
+			return await this.userRepository.save(user)
 		} catch (error) {
 			return error
-		}		  
+		}
 	}
 
 
 
- 
+
 	async findAll(): Promise<UserEntity[]> {
-		return await this.userRepository.find();
-	  }
+		try {
+			return await this.userRepository.find();
+		} catch (error) {
+			return error
+		}
+	}
 
-	  async findOne(id): Promise<UserEntity> {
-		return await this.userRepository.findOne({where:{id}});
-	  }
+	async findOne(id): Promise<UserEntity> {
+		try {
+			return await this.userRepository.findOne({ where: { id } });
+		} catch (error) {
+			return error
+		}
+	}
 
-	  async Delete(id: number): Promise<DeleteResult> {
-		return await this.userRepository.delete( id);
-	  }
+	async Delete(id: number): Promise<DeleteResult> {
+		try {
+
+			return await this.userRepository.delete(id);
+		} catch (error) {
+			return error
+		}
+	}
 
 	async UpdateUser(data: UpdateUserDto): Promise<UserEntity> {
 		try {
-			let user  =await this.findOne(data.id)
+			let user = await this.findOne(data.id)
 			user.name = data.name;
 			user.username = data.username;
 			user.password = data.password;

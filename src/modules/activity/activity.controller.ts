@@ -3,6 +3,7 @@ import { ActivityService } from "./activity.service";
 import { CreateActivityDto } from "./dto/create-activity.dto";
 import { response } from "express";
 import { UpdateActivityDto } from "./dto/update-activity.dto";
+import { ActivityEntity } from "src/models/activity.entity";
 
 @Controller('activity')
 export class ActivityController {
@@ -22,6 +23,12 @@ export class ActivityController {
     @Get(':id') 
     async findOne(@Response() res,@Param('id') id: number ) {
        const response = await this.activityService.findOne(id);
+        res.status(HttpStatus.OK).json(response);
+    }
+
+    @Get('name/:curriculumactivity') 
+    async findActivityByName(@Response() res,@Param('curriculumactivity') curriculumactivity: any ) {
+       const response = await this.activityService.findByNameActivity(curriculumactivity);
         res.status(HttpStatus.OK).json(response);
     }
 
