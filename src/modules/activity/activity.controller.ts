@@ -11,7 +11,9 @@ export class ActivityController {
 
     @Post()
     async CreateActivity(@Response() res, @Body() activity: CreateActivityDto) {
+        console.log(activity)
         const response = await this.activityService.createActivity(activity)
+
         res.status(HttpStatus.OK).json(response);
     }
     @Get()
