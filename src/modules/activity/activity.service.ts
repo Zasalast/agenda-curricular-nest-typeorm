@@ -1,4 +1,4 @@
-import { Injectable, Get, Post, Put, Delete, Options } from '@nestjs/common';
+import { Injectable, Get, Post, Put, Delete, Options, flatten } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository,getRepository, DeleteResult, Like,EntityRepository } from 'typeorm';
 import { ActivityEntity } from '../../models/activity.entity'
@@ -62,9 +62,13 @@ export class ActivityService {
 		}
 	}
 
-	async Delete(id: number): Promise<DeleteResult> {
+	async Delete(id: number): Promise<boolean>  {
 		try {
-			return await this.activityRepository.delete(id);
+			const result = await this.activityRepository.delete(id);
+			if(result.affected>0)
+				return true
+			else
+				return false
 		} catch (error) {
 			return error
 		}
